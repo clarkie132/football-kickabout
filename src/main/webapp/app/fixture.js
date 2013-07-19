@@ -1,17 +1,21 @@
 Fixture = Backbone.Model.extend({
 
+	urlRoot : BASE_REST_URL + "fixtures",
 	validate : function(attributes) {
-		alert("Validating");
+		
 	},	
-	initialize : function() {
-		alert("Welcome to this world");
+	initialize : function() {			
 	}
 });
 
+var Fixtures = Backbone.Collection.extend({
+  url : BASE_REST_URL + "fixtures",
+  model: Fixture
+});
 
 var FixtureView = Backbone.View.extend({
 
-	  el: "main",
+	  el: '#main_container',
 
 	//  events: {
 	//    "click .icon":          "open",
@@ -25,10 +29,10 @@ var FixtureView = Backbone.View.extend({
 	  },
 
 	  render: function() {
-		  alert("rendering");
 		  var source   = $("#entry-template").html();
 		  var template = Handlebars.compile(source);
-		  this.$el.html( template );
+		  var html = template(this.model);
+		  this.$el.html( html );
 	  }
 
 	});

@@ -17,66 +17,77 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @XmlRootElement
 @Table(name = "League", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
-public class League {
+public class League
+{
 
-	@Id
-	@GeneratedValue
-	private Long id;
+   @Id
+   @GeneratedValue
+   private Long id;
 
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "league")
-	private List<Team> teams = new ArrayList<Team>();
+   @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "league")
+   private List<Team> teams = new ArrayList<Team>();
 
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	private List<Fixture> fixtures = new ArrayList<Fixture>();
-	
-	@NotEmpty
-	private String name;
-	private int division;
+   @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+   private List<Fixture> fixtures = new ArrayList<Fixture>();
 
-	public Long getId() {
-		return id;
-	}
+   @NotEmpty
+   private String name;
+   private int division;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+   public Long getId()
+   {
+      return id;
+   }
 
-	public List<Fixture> getFixtures() {
-		return fixtures;
-	}
+   public void setId(Long id)
+   {
+      this.id = id;
+   }
 
-	public void setFixtures(List<Fixture> fixtures) {
-		this.fixtures = fixtures;
-	}
+   public List<Fixture> getFixtures()
+   {
+      return fixtures;
+   }
 
-	public String getName() {
-		return name;
-	}
+   public void setFixtures(List<Fixture> fixtures)
+   {
+      this.fixtures = fixtures;
+   }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+   public String getName()
+   {
+      return name;
+   }
 
-	public void setTeams(List<Team> teams) {
-		this.teams = teams;
-	}
-	
-	public List<Team> getTeams() {
-		return teams;
-	}
+   public void setName(String name)
+   {
+      this.name = name;
+   }
 
-	public void addTeam(Team team) {
-		teams.add(team);
-		team.setLeague(this);
-	}
+   public void setTeams(List<Team> teams)
+   {
+      this.teams = teams;
+   }
 
-	public int getDivision() {
-		return division;
-	}
+   public List<Team> getTeams()
+   {
+      return teams;
+   }
 
-	public void setDivision(int division) {
-		this.division = division;
-	}
-	
+   public void addTeam(Team team)
+   {
+      teams.add(team);
+      team.setLeague(this);
+   }
+
+   public int getDivision()
+   {
+      return division;
+   }
+
+   public void setDivision(int division)
+   {
+      this.division = division;
+   }
 
 }

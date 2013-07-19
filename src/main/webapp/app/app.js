@@ -1,0 +1,1 @@
+var BASE_REST_URL = "http://localhost:8080/jboss-javaee6-webapp/rest/";

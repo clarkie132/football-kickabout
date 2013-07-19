@@ -17,93 +17,109 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "Team", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 @XmlRootElement
-public class Team {
-	@Id
-	@GeneratedValue
-	private Long id;
-	
-	private String name;
-	
-	public Team() {
-	}
-	
-	public Team(String name) {
-		this.name = name;
-	}
+public class Team
+{
+   @Id
+   @GeneratedValue
+   private Long id;
 
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "team")
-	private List<Player> players = new ArrayList<Player>();
+   private String name;
 
-	@ManyToOne(targetEntity=com.dcsoft.football.model.League.class)
-	@JoinColumn(name = "league_id")
-	private League league;
+   public Team()
+   {
+   }
 
-	public Long getId() {
-		return id;
-	}
+   public Team(String name)
+   {
+      this.name = name;
+   }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+   @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "team")
+   private List<Player> players = new ArrayList<Player>();
 
-	public String getName() {
-		return name;
-	}
+   @ManyToOne(targetEntity = com.dcsoft.football.model.League.class)
+   @JoinColumn(name = "league_id")
+   private League league;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+   public Long getId()
+   {
+      return id;
+   }
 
-	public List<Player> getPlayers() {
-		return players;
-	}
+   public void setId(Long id)
+   {
+      this.id = id;
+   }
 
-	public void setPlayers(List<Player> players) {
-		this.players = players;
-	}
+   public String getName()
+   {
+      return name;
+   }
 
-	public League getLeague() {
-		return league;
-	}
+   public void setName(String name)
+   {
+      this.name = name;
+   }
 
-	public void setLeague(League league) {
-		this.league = league;
-	}
-	
-	public void addPlayer(Player player) {
-		player.setTeam(this);
-		players.add(player);
-	}
+   public List<Player> getPlayers()
+   {
+      return players;
+   }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
+   public void setPlayers(List<Player> players)
+   {
+      this.players = players;
+   }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Team other = (Team) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
-	}
+   public League getLeague()
+   {
+      return league;
+   }
 
-	@Override
-	public String toString() {
-		return "Team [name=" + name + "]";
-	}
+   public void setLeague(League league)
+   {
+      this.league = league;
+   }
 
+   public void addPlayer(Player player)
+   {
+      player.setTeam(this);
+      players.add(player);
+   }
+
+   @Override
+   public int hashCode()
+   {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + ((name == null) ? 0 : name.hashCode());
+      return result;
+   }
+
+   @Override
+   public boolean equals(Object obj)
+   {
+      if (this == obj)
+         return true;
+      if (obj == null)
+         return false;
+      if (getClass() != obj.getClass())
+         return false;
+      Team other = (Team) obj;
+      if (name == null)
+      {
+         if (other.name != null)
+            return false;
+      }
+      else if (!name.equals(other.name))
+         return false;
+      return true;
+   }
+
+   @Override
+   public String toString()
+   {
+      return "Team [name=" + name + "]";
+   }
 
 }

@@ -57,7 +57,7 @@ body {
 		</div>
 	</div>
 
-	<div class="container" id="main">
+	<div class="container" id="main_container">
 
 		<h1>Bootstrap starter template</h1>
 		<p>
@@ -87,16 +87,17 @@ body {
 	<script src="libraries/underscore.js"></script>
 	<script src="libraries/backbone.js"></script>
 	<script src="libraries/handlebars.js"></script>
+	<script src="app/app.js"></script>
 	<script src="app/fixture.js"></script>
 	<script id="entry-template" type="text/x-handlebars-template">
   This is a test
 </script>
 
 <script>
-$(document).ready(function() {
-		alert("Page loaded");
-	//	var fixture = new Fixture();
-		new FixtureView().render();
+$(document).ready(function() {		
+		var fixtures = new Fixtures();
+		fixtures.fetch();		
+		new FixtureView(fixtures).render();
 	});
 </script>
 </body>

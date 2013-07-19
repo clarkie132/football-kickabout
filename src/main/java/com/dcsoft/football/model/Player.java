@@ -11,48 +11,57 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @XmlRootElement
-public class Player {
-	
-	@Id
-	@GeneratedValue
-	private Long id;
-	private String name;
+public class Player
+{
 
-	@ManyToOne(targetEntity = com.dcsoft.football.model.Team.class)
-	private Team team;
+   @Id
+   @GeneratedValue
+   private Long id;
+   private String name;
 
-	@OneToMany
-	private List<Skill> skills;
+   @ManyToOne(targetEntity = com.dcsoft.football.model.Team.class)
+   private Team team;
 
-	public Long getId() {
-		return id;
-	}
+   @OneToMany
+   private List<Skill> skills;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+   public Long getId()
+   {
+      return id;
+   }
 
-	public String getName() {
-		return name;
-	}
+   public void setId(Long id)
+   {
+      this.id = id;
+   }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+   public String getName()
+   {
+      return name;
+   }
 
-	public List<Skill> getSkills() {
-		return skills;
-	}
+   public void setName(String name)
+   {
+      this.name = name;
+   }
 
-	public void setSkills(List<Skill> skills) {
-		this.skills = skills;
-	}
+   public List<Skill> getSkills()
+   {
+      return skills;
+   }
 
-	public Team getTeam() {
-		return team;
-	}
+   public void setSkills(List<Skill> skills)
+   {
+      this.skills = skills;
+   }
 
-	public void setTeam(Team team) {
-		this.team = team;
-	}
+   public Team getTeam()
+   {
+      return team;
+   }
+
+   public void setTeam(Team team)
+   {
+      this.team = team;
+   }
 }
