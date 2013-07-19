@@ -24,14 +24,16 @@ var FixtureView = Backbone.View.extend({
 	 // },
 
 	  initialize: function() {
-	 //   this.listenTo(this.model, "change", this.render);
+	    this.listenTo(this.model, "change", this.render);		
 	    this.render();
 	  },
 
 	  render: function() {
 		  var source   = $("#entry-template").html();
 		  var template = Handlebars.compile(source);
-		  var html = template(this.model);
+		  
+		  var html = template(this.model.toJSON());
+		  alert(JSON.stringify(this.model));
 		  this.$el.html( html );
 	  }
 
