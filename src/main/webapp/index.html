@@ -56,15 +56,7 @@ body {
 			</div>
 		</div>
 	</div>
-
 	<div class="container" id="main_container">
-
-		<h1>Bootstrap starter template</h1>
-		<p>
-			Use this document as a way to quick start any new project.<br>
-			All you get is this message and a barebones HTML document.
-		</p>
-
 	</div>
 	<!-- /container -->
 
@@ -93,30 +85,33 @@ body {
 	<table class="table">
 		<tr>
 			<th>Home Team
-			</th>
-			<th>Away Team
-			</th>
-			<th>Sequence
-			</th>			
+			</th>		
+			<th>Goals
+			</th>		
+			<th>Goals
+			</th>		
+			<th>Away Team							
 		</tr>
 		{{#each .}}
 		<tr>
 			<td>{{homeTeam.name}}
 			</td>
-			<td>{{awayTeam.name}}
+			<td>{{homeTeam.result.homeGoals}}
 			</td>
-			<td>{{sequence}}
-			</td>			
+			<td>{{homeTeam.result.awayGoals}}
+			</td>
+			<td>{{awayTeam.name}}
+			</td>		
 		</tr>
 		{{/each}}
 	</table>
 </script>
 
-<script>
+	<script>
 $(document).ready(function() {		
 		var fixtures = new Fixtures();    
+		var view = new FixtureView({model : fixtures});			
 		fixtures.fetch();
-		new FixtureView({model : fixtures}).render();
 	});
 </script>
 </body>

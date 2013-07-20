@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Football League</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- Le styles -->
+<link href="assets/css/bootstrap.css" rel="stylesheet">
+<style>
+body {
+	padding-top: 60px;
+	/* 60px to make the container go all the way to the bottom of the topbar */
+}
+</style>
+<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+<!-- Fav and touch icons -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="assets/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="assets/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="assets/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="assets/ico/apple-touch-icon-57-precomposed.png">
+<link rel="shortcut icon" href="assets/ico/favicon.png">
+</head>
+
+<body>
+
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<button type="button" class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="brand" href="#">Project name</a>
+				<div class="nav-collapse collapse">
+					<ul class="nav">
+						<li class="active"><a href="#">Home</a></li>
+						<li><a href="#about">About</a></li>
+						<li><a href="#contact">Contact</a></li>
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+	<div class="container" id="main_container">
+	</div>
+	<!-- /container -->
+
+	<!-- Le javascript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="assets/js/jquery.js"></script>
+	<script src="assets/js/bootstrap-transition.js"></script>
+	<script src="assets/js/bootstrap-alert.js"></script>
+	<script src="assets/js/bootstrap-modal.js"></script>
+	<script src="assets/js/bootstrap-dropdown.js"></script>
+	<script src="assets/js/bootstrap-scrollspy.js"></script>
+	<script src="assets/js/bootstrap-tab.js"></script>
+	<script src="assets/js/bootstrap-tooltip.js"></script>
+	<script src="assets/js/bootstrap-popover.js"></script>
+	<script src="assets/js/bootstrap-button.js"></script>
+	<script src="assets/js/bootstrap-collapse.js"></script>
+	<script src="assets/js/bootstrap-carousel.js"></script>
+	<script src="assets/js/bootstrap-typeahead.js"></script>
+	<script src="libraries/underscore.js"></script>
+	<script src="libraries/backbone.js"></script>
+	<script src="libraries/handlebars.js"></script>
+	<script src="app/app.js"></script>
+	<script src="app/league.js"></script>
+	<script id="league-template" type="text/x-handlebars-template">
+	<h1>Leagues</h1>
+	<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="showLeague">		
+		<tr>	
+			<th>Name
+			</th>		
+			<th>Division						
+		</tr>
+		{{#each .}}
+		<tr>
+			<td>{{name}}
+			</td>
+			<td>{{division}}
+			</td>	
+		</tr>
+		{{/each}}
+	</table>
+<a href="#myModal" role="button" class="btn" data-toggle="modal">Add New League</a>
+ 
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Modal header</h3>
+</div>
+<div class="modal-body">
+<!-- Form Name -->
+<legend>League</legend>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label">League Name</label>
+  <div class="controls">
+    <input id="name" name="name" placeholder="type league name" class="input-xlarge" required="" type="text">
+    <p class="help-block">The Name of the League</p>
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="control-group">
+  <label class="control-label">Division</label>
+  <div class="controls">
+    <input id="division" name="division" placeholder="Type in Division Number" class="input-xlarge" required="" type="text">
+    <p class="help-block">This is an integer field</p>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<button class="btn btn-primary" id="save-league">Save changes</button>
+</div>
+</div>  
+ 
+	
+	
+</script>
+
+	<script>
+$(document).ready(function() {		
+		var leagues = new Leagues();    
+		var view = new LeagueView({model : leagues});			
+		leagues.fetch();
+		$("#save-league").click(function(event) {
+			event.preventDefault();
+			var league = new League();
+			league.set("name", "New Name");
+			league.set("division", 1);
+			league.save();
+			$('#myModal').modal('hide')
+		});
+	});
+</script>
+</body>
+</html>

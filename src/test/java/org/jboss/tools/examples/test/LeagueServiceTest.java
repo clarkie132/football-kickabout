@@ -38,6 +38,7 @@ import org.junit.runner.RunWith;
 import com.dcsoft.football.model.Fixture;
 import com.dcsoft.football.model.League;
 import com.dcsoft.football.model.Player;
+import com.dcsoft.football.model.Result;
 import com.dcsoft.football.model.Team;
 import com.dcsoft.football.service.LeagueService;
 
@@ -66,7 +67,7 @@ public class LeagueServiceTest {
         Team homeTeam = new Team();
         homeTeam.setName("Manchester City");
         league.addTeam(homeTeam);
-        
+        league.setDivision(1);
         Team awayTeam = new Team();
         awayTeam.setName("Manchester United");
         league.addTeam(awayTeam);
@@ -81,7 +82,12 @@ public class LeagueServiceTest {
         fixture.setAwayTeam(awayTeam);
         fixture.setHomeTeam(homeTeam);
         fixture.setSequence(1);
+        Result result = new Result();
+        result.setAwayGoals(1);
+        result.setAwayGoals(2);
+        fixture.setResult(result);
         fixtures.add(fixture);
+        
         
         league.setFixtures(fixtures);
         
@@ -90,6 +96,7 @@ public class LeagueServiceTest {
         assertNotNull(league.getId());
         assertNotNull(homeTeam.getId());
         assertNotNull(player.getId());
+        assertNotNull(result.getId());
         
         log.info(league.getName() + " was persisted with id " + league.getId());
     }

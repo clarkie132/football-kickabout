@@ -17,6 +17,8 @@
 package com.dcsoft.football.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -32,6 +34,19 @@ public class FixtureService {
 
 	@Inject
 	private Logger log;
+	
+
+	
+
+	public int getCurrentSequence(List<Fixture> fixtures) {
+		int currentSequence = 0;
+		for(Fixture fixture : fixtures) {
+			if(fixture.getResult() == null) {
+				currentSequence = Math.min(currentSequence, fixture.getSequence());
+			}
+		}
+		return currentSequence;
+	}
 
 	public List<Fixture> createFixtures(League league) {
 		log.info("Generating fixtures");
@@ -50,6 +65,7 @@ public class FixtureService {
 			}
 		}
 		sequenceFixtures(fixtures, teamCopy);
+		Collections.sort(fixtures, new FixtureComparator());
 		return fixtures;
 	}
 
@@ -81,4 +97,14 @@ public class FixtureService {
 
 	}
 
+	public static class FixtureComparator implements Comparator<Fixture> {
+
+		@Override
+		public int compare(Fixture o1, Fixture o2) {
+			return o1.getSequence() - o2.getSequence(); 
+		}
+
+		
+		
+	}
 }

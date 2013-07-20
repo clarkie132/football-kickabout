@@ -1,5 +1,6 @@
 package com.dcsoft.football.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -13,11 +14,17 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
+
+import com.dcsoft.football.model.DataTableWrapper;
 import com.dcsoft.football.model.League;
+import com.dcsoft.football.model.dto.LeagueDTO;
 
 /**
  * 
@@ -66,11 +73,38 @@ public class LeagueEndpoint
 
    @GET
    @Produces("application/json")
-   public List<League> listAll()
+   public List<LeagueDTO> listAll()
    {
-      final List<League> results = em.createQuery("SELECT l FROM League l LEFT JOIN FETCH l.teams LEFT JOIN FETCH l.fixtures", League.class).getResultList();
-      return results;
+      final List<League> results = em.createQuery("SELECT l FROM League l", League.class).getResultList();
+      List<LeagueDTO> leagues = new ArrayList<LeagueDTO>();
+      for(League league : results) {
+    	  Mapper mapper = new DozerBeanMapper();
+    	  LeagueDTO destObject =  
+    			    mapper.map(league, LeagueDTO.class);
+    	  leagues.add(destObject);
+      }
+      return leagues; 
    }
+   
+   @GET
+   @Produces("application/json")
+   @Path("/aadata")
+   
+   public DataTableWrapper listAllAaData(@QueryParam("_") String echo)
+   {	  
+	   List<League> results = new ArrayList<League>();
+	   League league = new League();
+	   league.setDivision(1);
+	   league.setName("Premier");
+	   league.setId(new Long(1));
+	   results.add(league);
+      //final List<League> results = em.createQuery("SELECT l FROM League l LEFT JOIN FETCH l.fixtures", League.class).getResultList();
+	  DataTableWrapper dataTableWrapper = new DataTableWrapper();
+	  dataTableWrapper.setAaData(results);
+	  dataTableWrapper.setsEcho(echo);
+      return dataTableWrapper;
+   }
+
 
    @PUT
    @Path("/{id:[0-9][0-9]*}")   

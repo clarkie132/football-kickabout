@@ -16,4 +16,4 @@
 --
 
 -- You can use this file to load seed data into the database using SQL statements
-insert into League (id, name) values (1, 'Division 2') 
+insert into League (id, name, division) values (1, 'Division 2', 1) 
