@@ -23,6 +23,9 @@ import javax.enterprise.inject.spi.InjectionPoint;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
+
 /**
  * This class uses CDI to alias Java EE resources, such as the persistence context, to CDI beans
  * 
@@ -41,10 +44,17 @@ public class Resources {
     @Produces
     @PersistenceContext
     private EntityManager em;
+    
+    Mapper mapper = new DozerBeanMapper();
 
     @Produces
     public Logger produceLog(InjectionPoint injectionPoint) {
         return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
+    }
+    
+    @Produces
+    public Mapper produceMapper() {
+        return mapper;
     }
 
 }

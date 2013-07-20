@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -19,7 +20,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
-import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 
 import com.dcsoft.football.model.DataTableWrapper;
@@ -35,6 +35,9 @@ public class LeagueEndpoint
 {
    @PersistenceContext(unitName = "primary")
    private EntityManager em;
+   
+   @Inject
+   Mapper mapper;
 
    @POST   
    public Response create(League entity)
@@ -77,8 +80,7 @@ public class LeagueEndpoint
    {
       final List<League> results = em.createQuery("SELECT l FROM League l", League.class).getResultList();
       List<LeagueDTO> leagues = new ArrayList<LeagueDTO>();
-      for(League league : results) {
-    	  Mapper mapper = new DozerBeanMapper();
+      for(League league : results) {    	  
     	  LeagueDTO destObject =  
     			    mapper.map(league, LeagueDTO.class);
     	  leagues.add(destObject);

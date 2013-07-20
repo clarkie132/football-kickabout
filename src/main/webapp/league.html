@@ -104,7 +104,7 @@ body {
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-<h3 id="myModalLabel">Modal header</h3>
+<h3 id="myModalLabel">Add</h3>
 </div>
 <div class="modal-body">
 <!-- Form Name -->
@@ -146,15 +146,7 @@ body {
 $(document).ready(function() {		
 		var leagues = new Leagues();    
 		var view = new LeagueView({model : leagues});			
-		leagues.fetch();
-		$("#save-league").click(function(event) {
-			event.preventDefault();
-			var league = new League();
-			league.set("name", "New Name");
-			league.set("division", 1);
-			league.save();
-			$('#myModal').modal('hide')
-		});
+		leagues.fetch();		
 	});
 </script>
 </body>
