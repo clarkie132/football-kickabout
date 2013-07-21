@@ -114,6 +114,6 @@ public class LeagueEndpoint
    {
       entity.setId(id);
       entity = em.merge(entity);
-      return Response.noContent().build();
+      return Response.ok().build();
    }
 }

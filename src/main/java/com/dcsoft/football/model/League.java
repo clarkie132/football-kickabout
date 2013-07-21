@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @XmlRootElement
-@Table(name = "League", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
+@Table(name = "League")
 public class League
 {
 
@@ -31,7 +31,10 @@ public class League
    private List<Fixture> fixtures = new ArrayList<Fixture>();
 
    @NotEmpty
+   @Column(unique=true)
    private String name;
+   
+   @Column(unique=true)
    private int division;
 
    public Long getId()

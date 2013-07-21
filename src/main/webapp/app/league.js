@@ -37,14 +37,31 @@ var LeagueView = Backbone.View.extend({
 		 
 	  },
 	  
-	  save : function(event) {
-			event.preventDefault();
+	  save : function(event) {			
 			var league = new League();						
 			league.set("name", $("#name").val());
 			league.set("division", $("#division").val());
-			$('#myModal').modal('hide')
-			league.save();			
-			this.model.add(league);		
+			$('#myModal').modal('hide');
+			var leagues = this.model;
+			
+			league.save(null, {
+					success: function (model, response) {
+						console.log("success");
+						this.model.add(league);								
+					},
+					error: function (model, response) {
+						// A 201 is not an error but there is no content so 
+						// backbone treats it like that
+						if(response.status == 201) {
+							console.log("success");
+							leagues.add(league);								
+						} else {
+							console.log("error" + response.status);
+						}
+						
+					}
+				});
+			
 	  }
 
 	});

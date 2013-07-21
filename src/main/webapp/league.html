@@ -87,7 +87,9 @@ body {
 		<tr>	
 			<th>Name
 			</th>		
-			<th>Division						
+			<th>Division	
+			<th></th>
+			<th></th>
 		</tr>
 		{{#each .}}
 		<tr>
@@ -95,6 +97,10 @@ body {
 			</td>
 			<td>{{division}}
 			</td>	
+			<td><a href="#" class="btn btn"><i class="icon-eye-open"></i> Teams</a>
+			</td>
+			<td><a href="#" class="btn btn"><i class="icon-eye-open"></i> Fixtures</a>
+			</td>
 		</tr>
 		{{/each}}
 	</table>
